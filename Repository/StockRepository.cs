@@ -49,7 +49,13 @@ namespace api.Repository
                 stockQuery = stockQuery.Where(s => s.Symbol.Contains(stockQueryHelper.Symbol));
             }
 
-            var stockList = await stockQuery.Select(s => s.ToStockDto()).ToListAsync();
+            var skipNumber = (stockQueryHelper.PageNumber - 1) * stockQueryHelper.PageSize;
+
+            var stockList = await stockQuery
+            .Skip(skipNumber)
+            .Take(stockQueryHelper.PageSize)
+            .Select(s => s.ToStockDto())
+            .ToListAsync();
             return stockList;
         }
 
