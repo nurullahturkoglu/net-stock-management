@@ -4,6 +4,7 @@ using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace api.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StockController(ApplicationDbContext applicationDbContext,IStockRepository stockRepository) : ControllerBase
     {
         private readonly ApplicationDbContext _applicationDbContext = applicationDbContext;
